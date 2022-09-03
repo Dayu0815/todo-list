@@ -5,6 +5,10 @@
   {{#each todos}}
   <li>
     {{this.name}}
+    <!--瀏覽特定 To-do-->
+    <a href="./todos/{{this._id}}">detail</a>
+    <!--修改特定 To-do-->
+    <a href="./todos/{{this._id}}/edit">edit</a>
   </li>
   {{/each}}
 </ul>
