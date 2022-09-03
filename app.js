@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+
 // 用app.use 規定每一筆請求，都需要先透過 body-parser 前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -28,7 +29,7 @@ db.once('open', () => {
 })
 
 
-//設定路由_ Todo 首頁
+//設定路由 get Todo 首頁
 app.get('/', (req, res) => {
   Todo.find() //取出 todo model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件，轉換成乾淨單純的 JS 資料陣列
@@ -36,12 +37,12 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error)) //如果發生意外，執行錯誤處理
 })
 
-// 設定路由_ 讀取 New 頁面資料 
+// 設定路由 get 讀取 New 頁面資料 
 app.get('/todos/new', (req, res) => {
   return res.render('new')
 })
 
-// 設定路由_ 接住表單資料，送往資料庫新增_ 完成 Create 動作
+// 設定路由 post 接住表單資料，送往資料庫新增_ 完成 Create 動作
 app.post('/todos', (req, res) => {
   const name = req.body.name       //從 req.body 取出表單裡的 name 資料
   return Todo.create({ name })     //存入資料庫，完成 create 動作
@@ -49,7 +50,7 @@ app.post('/todos', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 設定路由_列出某一筆特定 To-do
+// 設定路由 get 列出某一筆特定 To-do
 app.get('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)         //從資料庫查詢找出資料
@@ -58,7 +59,7 @@ app.get('/todos/:id', (req, res) => {
     .catch(error => console.log(error))  //如果發生意外，執行錯誤處理
 })
 
-// 設定路由_修改特定 To-do
+// 設定路由 get 修改特定 To-do
 app.get('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const name = req.body.name
@@ -68,7 +69,7 @@ app.get('/todos/:id/edit', (req, res) => {
       todo.name = name
       return todo.save()
     })
-    .then(() => res.redirect('/todos/${id}')) //如果儲存成功，返回首頁
+    .then(() => res.redirect(`/todos/${id}`)) //如果儲存成功，返回首頁
     .catch(error => console.log(error))
 })
 
