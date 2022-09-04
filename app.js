@@ -31,8 +31,8 @@ db.once('open', () => {
 
 //設定路由 get Todo 首頁
 app.get('/', (req, res) => {
-  Todo.find() //取出 todo model 裡的所有資料
-    .lean() // 把 Mongoose 的 Model 物件，轉換成乾淨單純的 JS 資料陣列
+  Todo.find()                             //取出 todo model 裡的所有資料
+    .lean()                               // 把 Mongoose 的 Model 物件，轉換成乾淨單純的 JS 資料陣列
     .then(todos => res.render('index', { todos })) // 將資料傳給前端 index 樣版
     .catch(error => console.error(error)) //如果發生意外，執行錯誤處理
 })
