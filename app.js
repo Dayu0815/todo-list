@@ -28,7 +28,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-
 //設定路由 get Todo 首頁
 app.get('/', (req, res) => {
   Todo.find() //取出 todo model 裡的所有資料
@@ -68,13 +67,11 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))  //如果發生意外，執行錯誤處理
 })
 
-
 // 設定路由 post 修改特定 To-do
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   return Todo.findById(id)            //從資料庫查詢找出資料
-
     .then(todo => {                  //如果查詢成功，把資料修改後，重新儲存資料
       todo.name = name
       return todo.save()
