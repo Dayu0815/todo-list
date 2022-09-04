@@ -16,7 +16,7 @@ app.set('view engine', 'hbs')
 // 用app.use 規定每一筆請求，都需要先透過 body-parser 前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 
-//取得資料連線狀態
+// 取得資料連線狀態_連線異常_連線成功 顯示訊息
 const db = mongoose.connection
 db.on('error', () => {
   console.log('mongodb error!')
@@ -29,7 +29,7 @@ db.once('open', () => {
 app.get('/', (req, res) => {
   Todo.find()                             //取出 todo model 裡的所有資料
     .lean()                               // 把 Mongoose 的 Model 物件，轉換成乾淨單純的 JS 資料陣列
-    .then(todos => res.render('index', { todos })) // 將資料傳給前端 index 樣版
+    .then(todos => res.render('index', { todos })) // 將 todos 資料，傳給前端 index 樣版
     .catch(error => console.error(error)) //如果發生意外，執行錯誤處理
 })
 
