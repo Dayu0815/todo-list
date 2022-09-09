@@ -14,4 +14,5 @@ const todoSchema = new Schema({
     default: false // 預設完成狀態為 False
   }
 })
+//匯出 Todo資料結構 Schema（資料庫綱要）
 module.exports = mongoose.model('Todo', todoSchema)
