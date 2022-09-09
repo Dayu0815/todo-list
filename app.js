@@ -66,7 +66,6 @@ app.get('/todos/:id/edit', (req, res) => {
 })
 
 // 設定路由 post 讀取查詢資料庫，接住修改後資料，送往資料庫儲存_ Update
-
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body // 運用解構賦值語法，收集使用者是否勾選 checkbox資訊
