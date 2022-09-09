@@ -1,6 +1,8 @@
-<form action="/todos/{{todo._id}}/edit" method="POST">
-  <input type="checkbox" name="isDone" {{#if todo.isDone}} checked{{/if}}>
+<!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
+<form action="/todos/{{ todo._id }}?_method=PUT" method="POST">
+  <!-- edit 頁面 增加可編輯的 checkbox-->
+  <input type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}}>
   <input type="text" placeholder="name" name="name" value="{{todo.name}}">
   <button type="submit">Save</button>
-  <a href="/">back</a>
+  <h2><a href="/">back</a></h2>
 </form>

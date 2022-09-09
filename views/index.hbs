@@ -4,7 +4,7 @@
   <ul>
     {{#each todos}}
     <li>
-      <!-- index 頁面 checkbox 只能檢視、不能編輯-->
+      <!-- index 頁面 checkbox 只能檢視、不能編輯disabled-->
       <input type="checkbox" name="isDone" {{#if this.isDone}} checked {{/if}} disabled>
       {{this.name}}
       <!--瀏覽特定 To-do-->
@@ -12,7 +12,8 @@
       <!--修改特定 To-do-->
       <a href="./todos/{{this._id}}/edit">edit</a>
       <!--刪除特定 To-do-->
-      <form action="./todos/{{this._id}}/delete" method="POST" style="display: inline;">
+      <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
+      <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
         <button type="submit">delete</button>
       </form>
     </li>

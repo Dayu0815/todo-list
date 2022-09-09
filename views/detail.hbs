@@ -1,12 +1,14 @@
-<p>
-  <!-- detail 頁面 checkbox 只能檢視、不能編輯-->
-  <input type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}} disabled>
-  {{todo.name}}
-</p>
-<a href="/todos/{{todo._id}}/edit">edit</a>
+<h2>
+  <p>
+    <!-- detail 頁面 checkbox 只能檢視、不能編輯 disabled-->
+    <input type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}} disabled>
+    {{todo.name}}
+  </p>
+  <a href="/todos/{{todo._id}}/edit">edit</a>
 
-<a href="/">back</a>
-
-<form action="/todos/{{todo._id}}/delete" method="POST" style="display: inline;">
-  <button type="submit">delete</button>
-</form>
+  <a href="/">back</a>
+  <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
+  <form action="/todos/{{ todo._id }}?_method=DELETE" method="POST" style="display: inline;">
+    <button type="submit">delete</button>
+  </form>
+</h2>

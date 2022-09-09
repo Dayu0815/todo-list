@@ -3,7 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose') //載入mongoose
 const exphbs = require('express-handlebars') //載入 handlebars
 const Todo = require('./models/todo') //載入 todo model
-const bodyParser = require('body-parser') //引用 body-parser
+const bodyParser = require('body-parser') //請改用內建 body-parser，不需另外安裝載入
+const methodOverride = require('method-override') //載入 method-override(路由覆蓋機制)
 const app = express()
 
 //設定連線到 mongoDB，在連線資料庫的同時傳入設定，可以直接把兩組設定合併成一個物件，更新語法
@@ -13,8 +14,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-// 用app.use 規定每一筆請求，都需要先透過 body-parser 前置處理
+//設定每一筆請求，都會透過 body-parser 前置處理，都會透過 methodOverride(路由覆蓋機制) 前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // 取得資料連線狀態_連線異常_連線成功 顯示訊息
 const db = mongoose.connection
@@ -65,8 +67,8 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))  //如果發生意外，執行錯誤處理
 })
 
-// 設定路由 post 讀取查詢資料庫，接住修改後資料，送往資料庫儲存_ Update
-app.post('/todos/:id/edit', (req, res) => {
+//methodOverride(路由覆蓋機制) 設定路由post，改成put 讀取查詢資料庫，接住修改後資料，送往資料庫儲存_ Update
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body // 運用解構賦值語法，收集使用者是否勾選 checkbox資訊
   return Todo.findById(id)               //從資料庫查詢找出資料
@@ -79,8 +81,8 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))  //如果發生意外，執行錯誤處理
 })
 
-//設定路由 post 讀取查詢資料庫，刪除特定資料_ Delete
-app.post('/todos/:id/delete', (req, res) => {
+//methodOverride(路由覆蓋機制) 設定路由post，改成delete 讀取查詢資料庫，刪除特定資料_ Delete
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)                //從資料庫查詢找出資料
     .then(todo => todo.remove())          //如果查詢成功，把資料刪除
