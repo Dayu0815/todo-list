@@ -6,7 +6,7 @@ const todos = require('./modules/todos') //引入 todos模組程式碼
 //將網址結構符合 / 字串的request 導向 home 模組
 //將網址結構符合 /todos 字串的request 導向 todos 模組
 router.use('/', home) //如果 request路徑是/ ，就執行 modules/home裡的程式碼
-router.use('/todos', todos)
+router.use('/todos', todos) //記得刪除路由的前綴詞 /todos
 
-//匯出路由器
+//匯出 router路由器
 module.exports = router
