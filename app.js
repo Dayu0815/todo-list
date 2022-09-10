@@ -13,7 +13,7 @@ const app = express()
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-//設定每一筆請求，都會透過 body-parser 前置處理，都會透過 methodOverride(路由覆蓋機制) 前置處理
+//設定每一筆請求，都要透過 body-parser 前置處理，都要透過 methodOverride(路由覆蓋機制) 前置處理
 //將 request 導入 Router路由器
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
