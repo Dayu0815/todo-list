@@ -6,8 +6,7 @@ const methodOverride = require('method-override') //載入 method-override(路�
 const routes = require('./routes') //載入 Router路由器
 require('./config/mongoose') //載入 Mongoose連線設定
 const app = express()
-
-
+const PORT = process.env.PORT || 3000 //如果在 Heroku 環境使用 process.env.PORT，若在本地環境使用3000
 
 // setting 樣板引擎 (template engine)
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -19,13 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
 
-
-
-
-
-
-
-//設定監聽 port 3000
-app.listen(3000, () => {
-  console.log('App is running on http://localhost:3000')
+//設定應用程式監聽專用 port 
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`)
 })
