@@ -1,4 +1,9 @@
-<form action="/todos" method="post">
-  <input type="text" placeholder="name" name="name">
-  <button type="submit">Create</button>
+<!-- 運用 Bootstrap Input Group 元件 _重置美化 new 頁面-->
+<form action="/todos" method="post" style="display:inline;">
+  <div class="input-group">
+    <input class="form-control" type="text" placeholder="name" name="name">
+
+    <!-- 變更按鈕樣式-->
+    <button class="btn btn-success" type="submit">Create</button>
+  </div>
 </form>
