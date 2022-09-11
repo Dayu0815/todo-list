@@ -1,14 +1,18 @@
-<h2>
-  <p>
-    <!-- detail 頁面 checkbox 只能檢視、不能編輯 disabled-->
-    <input type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}} disabled>
-    {{todo.name}}
-  </p>
-  <a href="/todos/{{todo._id}}/edit">edit</a>
+<!-- 運用 Bootstrap Input Group 元件 _重置美化 detail 頁面-->
+<form action="/todos/{{ todo._id }}?_method=DELETE" method="POST" style="display: inline;">
+  <div class="input-group">
+    <div class="input-group-text">
 
-  <a href="/">back</a>
-  <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
-  <form action="/todos/{{ todo._id }}?_method=DELETE" method="POST" style="display: inline;">
-    <button type="submit">delete</button>
-  </form>
-</h2>
+      <!-- detail 頁面 checkbox 只能檢視、不能編輯 disabled-->
+      <input class="form-check-input mt-0" type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}} disabled>
+    </div>
+
+    <input class="form-control" type="text" placeholder="name" name="name" value="{{todo.name}}" disabled>
+
+    <!-- 變更按鈕樣式-->
+    <a class="btn btn-success" href="/todos/{{todo._id}}/edit">edit</a>
+
+    <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑，變更按鈕樣式-->
+    <button class="btn btn-danger" type="submit">delete</button>
+  </div>
+</form>
