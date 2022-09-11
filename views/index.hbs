@@ -1,22 +1,30 @@
-<h2>Hello world ! This is index test picture.</h2>
-<h2>
-  
-  <ul>
-    {{#each todos}}
-    <li>
-      <!-- index 頁面 checkbox 只能檢視、不能編輯disabled-->
-      <input type="checkbox" name="isDone" {{#if this.isDone}} checked {{/if}} disabled>
-      {{this.name}}
-      <!--瀏覽特定 To-do-->
-      <a href="./todos/{{this._id}}">detail</a>
-      <!--修改特定 To-do-->
-      <a href="./todos/{{this._id}}/edit">edit</a>
-      <!--刪除特定 To-do-->
-      <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
-      <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-        <button type="submit">delete</button>
-      </form>
-    </li>
-    {{/each}}
-  </ul>
-</h2>
+<!--美化首頁-->
+<ul class="list-group ">
+
+  {{#each todos}}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-auto me-auto">
+
+        <!-- index 頁面 checkbox 只能檢視、不能編輯disabled，水平置中對齊-->
+        <input style="vertical-align:middle;" type="checkbox" name="isDone" {{#if this.isDone}} checked {{/if}}
+          disabled>
+
+        <h4 style="display:inline; vertical-align:middle;"> {{this.name}}</h4>
+      </div>
+
+      <div class="col-auto">
+        <!--瀏覽特定 To-do，變更按鈕樣式-->
+        <a class="btn btn-secondary" href="./todos/{{this._id}}">detail</a>
+        <!--修改特定 To-do，變更按鈕樣式-->
+        <a class="btn btn-success" href="./todos/{{this._id}}/edit">edit</a>
+        <!--刪除特定 To-do，套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑，變更按鈕樣式-->
+        <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <button class="btn btn-danger" type="submit">delete</button>
+        </form>
+      </div>
+    </div>
+  </li>
+  {{/each}}
+
+</ul>
