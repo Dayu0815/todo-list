@@ -1,8 +1,16 @@
+<!-- 運用 Bootstrap Input Group 元件 _重置美化 edit 頁面-->
 <!-- 套用 method-override 設計的路由覆蓋機制，修改 <form> 發送請求的路徑-->
-<form action="/todos/{{ todo._id }}?_method=PUT" method="POST">
-  <!-- edit 頁面 增加可編輯的 checkbox-->
-  <input type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}}>
-  <input type="text" placeholder="name" name="name" value="{{todo.name}}">
-  <button type="submit">Save</button>
-  <h2><a href="/">back</a></h2>
+<form action="/todos/{{ todo._id }}?_method=PUT" method="POST" style="display:inline;">
+  <div class="input-group">
+    <div class="input-group-text">
+
+      <!-- edit 頁面 增加可編輯的 checkbox-->
+      <input class="form-check-input mt-0" type="checkbox" name="isDone" {{#if todo.isDone}} checked {{/if}}>
+    </div>
+
+    <input class="form-control" type="text" placeholder="name" name="name" value="{{todo.name}}">
+
+    <!-- 變更按鈕樣式-->
+    <button class="btn btn-success" type="submit">Save</button>
+  </div>
 </form>
