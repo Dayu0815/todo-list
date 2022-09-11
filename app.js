@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
 
-//設定應用程式監聽專用 port 
+//start the server listening for requests 設定應用程式監聽專用 port 
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
 })
